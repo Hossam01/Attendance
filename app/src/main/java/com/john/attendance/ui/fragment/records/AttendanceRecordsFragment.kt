@@ -90,7 +90,7 @@ class AttendanceRecordsFragment :
                                         binding.idTeamsGrid.visibility = View.GONE
                                         binding.emptyDataTxt.visibility = View.VISIBLE
                                 }
-                            }
+                            } 
                         }
                     }
                 }
