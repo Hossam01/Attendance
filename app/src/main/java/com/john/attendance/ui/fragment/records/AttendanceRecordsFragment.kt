@@ -80,18 +80,15 @@ class AttendanceRecordsFragment :
                         state.data.collect {
                             if (it is List<*>) {
                                 val studentDatSet = (it as List<Student>).toMutableList()
-                                if (studentDatSet.isNotEmpty()) {
+                                if (studentDatSet.size>0) {
                                     itemsAdapter.addToList(it)
-                                    activity?.runOnUiThread {
                                         itemsAdapter.notifyDataSetChanged()
                                         binding.idTeamsGrid.visibility = View.VISIBLE
                                         binding.emptyDataTxt.visibility = View.GONE
-                                    }
+
                                 } else {
-                                    activity?.runOnUiThread {
                                         binding.idTeamsGrid.visibility = View.GONE
                                         binding.emptyDataTxt.visibility = View.VISIBLE
-                                    }
                                 }
                             }
                         }

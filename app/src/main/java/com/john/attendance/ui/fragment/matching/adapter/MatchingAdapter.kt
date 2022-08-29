@@ -25,6 +25,7 @@ class MatchingAdapter : RecyclerView.Adapter<MatchingAdapter.ViewHolder>() {
         holder.bind(dataSet[position])
     }
     fun addItems(items: MutableList<MatchStudent>) {
+        dataSet.clear()
         dataSet.addAll(items)
         notifyDataSetChanged()
     }

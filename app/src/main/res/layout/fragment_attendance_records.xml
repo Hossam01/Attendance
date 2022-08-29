@@ -47,7 +47,7 @@
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     tools:itemCount="10"
                     tools:listitem="@layout/item_list_students"
-                    tools:visibility="gone" />
+                     />
 
                 <TextView
                     android:id="@+id/empty_data_txt"
@@ -58,7 +58,8 @@
                     android:gravity="center"
                     android:paddingHorizontal="@dimen/_10sdp"
                     android:text="There is no students to display"
-                    android:textSize="@dimen/_18sdp" />
+                    android:textSize="@dimen/_18sdp"
+                    android:visibility="gone"/>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.google.android.material.card.MaterialCardView>
 

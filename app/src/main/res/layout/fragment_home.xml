@@ -17,6 +17,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="home"
+                style="@style/DefaultButton"
                 android:layout_margin="@dimen/_10sdp"
                 />
             <androidx.appcompat.widget.AppCompatButton
@@ -26,6 +27,7 @@
                 android:layout_gravity="center"
                 android:text="Matching"
                 android:layout_margin="@dimen/_10sdp"
+                style="@style/DefaultButton"
                 />
         </androidx.appcompat.widget.LinearLayoutCompat>
 

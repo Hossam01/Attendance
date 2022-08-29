@@ -16,12 +16,13 @@ import com.john.attendance.ui.fragment.matching.adapter.MatchingAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import java.lang.Exception
 import kotlin.random.Random
 import kotlin.random.Random.Default.nextInt
 
 class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,MatchingState>() {
 
-    var studentDatSet = mutableListOf<Student>()
+    var studentDatSet = mutableSetOf<Student>()
 
     override val layoutId: Int
         get() = R.layout.matching_fragment
@@ -78,23 +79,63 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                         state.data.collect {
                             if (it is List<*>) {
                                 studentDatSet.clear()
-                                studentDatSet = (it as List<Student>).toMutableList()
-                                Log.d("TAG", "observeState:${studentDatSet} ")
+                                studentDatSet = (it as List<Student>).toMutableSet()
+                                Log.d("TAG", "observeState:${studentDatSet.size} ")
                                 if (studentDatSet.isNotEmpty()) {
+                                    binding.rvItemlist.visibility=View.VISIBLE
+                                    binding.studentHome.visibility=View.GONE
                                     var i = 0
-                                    studentDatSet.forEach {
-                                        var radmIndex = Random.nextInt(i, studentDatSet.size)
-                                        if (radmIndex != i) {
-                                            viewModel.intents.send(
-                                                MatchingIntents.AddMatch(
-                                                    Matching(
-                                                        it.StudentID!!, studentDatSet[radmIndex].StudentID!!
+
+
+//                                    var length:Int=(studentDatSet.size / 2)
+//                                    for (i in 0..length)
+//                                    {
+//                                        viewModel.intents.send(
+//                                            MatchingIntents.AddMatch(
+//                                                Matching(
+//                                                    studentDatSet.elementAt(i).StudentID!!,
+//                                                    studentDatSet.elementAt((length-1)+i).StudentID!!
+//                                                )
+//                                            )
+//                                        )
+//                                    }
+
+
+                                    if (studentDatSet.size % 2 != 0) {
+                                        for (i in 0..studentDatSet.size -2) {
+                                            var radmIndex = Random.nextInt(i, studentDatSet.size)
+                                            if (radmIndex != i) {
+                                                viewModel.intents.send(
+                                                    MatchingIntents.AddMatch(
+                                                        Matching(
+                                                            studentDatSet.elementAt(i).StudentID!!,
+                                                            studentDatSet.elementAt(radmIndex).StudentID!!
+                                                        )
                                                     )
                                                 )
-                                            )                                        }
-
-                                        i++
+                                            }
+                                        }
+                                    } else {
+                                        studentDatSet.forEach {
+                                            var radmIndex = Random.nextInt(i, studentDatSet.size)
+                                            if (radmIndex != i) {
+                                                viewModel.intents.send(
+                                                    MatchingIntents.AddMatch(
+                                                        Matching(
+                                                            it.StudentID!!,
+                                                            studentDatSet.elementAt(radmIndex).StudentID!!
+                                                        )
+                                                    )
+                                                )
+                                            }
+                                            i++
+                                        }
                                     }
+                                }
+                                else
+                                {
+                                    binding.rvItemlist.visibility=View.INVISIBLE
+                                    binding.studentHome.visibility=View.VISIBLE
                                 }
                             }
                         }
@@ -110,8 +151,23 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                             if (it is List<*>) {
                                 val MatchDatSet = (it as List<Matching>).toMutableList()
                                 list.clear()
-                                MatchDatSet.forEach {
-                                  list.add(MatchStudent( studentDatSet.filter {them->them.StudentID==it.studentIDHome}.get(0).name.toString(),studentDatSet.filter {them->them.StudentID==it.studentIDWay}.get(0).name.toString()))
+                                try {
+
+
+                                    MatchDatSet.forEach {
+                                        list.add(
+                                            MatchStudent(
+                                                studentDatSet.filter { them -> them.StudentID == it.studentIDHome }
+                                                    .get(0).name.toString(),
+                                                studentDatSet.filter { them -> them.StudentID == it.studentIDWay }
+                                                    .get(0).name.toString()
+                                            )
+                                        )
+                                    }
+                                }catch (e:Exception){
+                                    lifecycleScope.launchWhenResumed {
+                                        viewModel.intents.send(MatchingIntents.GetDataRequest)
+                                    }
                                 }
                                 Log.d("TAG", "observeStatematch: ${list}")
                                     binding.rvItemlist.adapter = adapter
