@@ -56,6 +56,17 @@ class MatchingViewModel(
                             this.insertMatches(student = it.match)
                         )
                 }
+
+                is MatchingIntents.RemoveStudent->
+                {
+                    this._viewState.value =
+                        this.viewStateReducer(this._viewState.value, MatchingState.Loading)
+                    this._viewState.value =
+                        this.viewStateReducer(
+                            this._viewState.value,
+                            this.deleteMatch()
+                        )
+                }
             }
         }
     }
@@ -64,6 +75,15 @@ class MatchingViewModel(
 
         return with(database?.studentDao) {
             MatchingState.Success(data = this?.getStudentList())
+        }
+    }
+
+    private fun deleteMatch():MatchingState{
+        return with(database?.matchDao) {
+            viewModelScope.launch {
+                database?.matchDao?.deleteAllStudents()
+            }
+            MatchingState.SuccessMatch(data = this?.getMatches())
         }
     }
 

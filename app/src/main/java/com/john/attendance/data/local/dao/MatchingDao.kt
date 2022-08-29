@@ -19,4 +19,7 @@ interface MatchingDao {
 
     @Query("Select * from matching")
     fun getMatches(): Flow<List<Matching>>
+
+    @Query("delete from matching where 1")
+    suspend fun deleteAllStudents()
 }

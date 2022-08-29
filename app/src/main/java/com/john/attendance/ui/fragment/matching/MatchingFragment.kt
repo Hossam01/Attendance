@@ -52,6 +52,19 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
             viewModel.intents.send(MatchingIntents.GetMatchesDataRequest)
         }
 
+        binding.refresh.setOnClickListener {
+
+            lifecycleScope.launchWhenResumed {
+                viewModel.intents.send(MatchingIntents.RemoveStudent)
+            }
+            lifecycleScope.launchWhenResumed {
+                viewModel.intents.send(MatchingIntents.GetDataRequest)
+            }
+            lifecycleScope.launchWhenResumed {
+                viewModel.intents.send(MatchingIntents.GetMatchesDataRequest)
+            }
+        }
+
     }
 
     override fun observeState(state: MatchingState) {
@@ -71,16 +84,15 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                                     var i = 0
                                     studentDatSet.forEach {
                                         var radmIndex = Random.nextInt(i, studentDatSet.size)
-                                        if (radmIndex == i) {
-                                            radmIndex = Random.nextInt(i, studentDatSet.size)
-                                        }
-                                        viewModel.intents.send(
-                                            MatchingIntents.AddMatch(
-                                                Matching(
-                                                    it.StudentID!!, studentDatSet[radmIndex].StudentID!!
+                                        if (radmIndex != i) {
+                                            viewModel.intents.send(
+                                                MatchingIntents.AddMatch(
+                                                    Matching(
+                                                        it.StudentID!!, studentDatSet[radmIndex].StudentID!!
+                                                    )
                                                 )
-                                            )
-                                        )
+                                            )                                        }
+
                                         i++
                                     }
                                 }
