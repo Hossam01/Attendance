@@ -1,0 +1,174 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "946304a5351b5e7ef408eec9aedd2536",
+    "entities": [
+      {
+        "tableName": "Class",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`ClassID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `date` TEXT NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "ClassID",
+            "columnName": "ClassID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "date",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "ClassID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Game",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`GameID` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `firstStudentID` INTEGER NOT NULL, `secondStudentID` INTEGER NOT NULL, `matchResultState` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "GameID",
+            "columnName": "GameID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "firstStudentID",
+            "columnName": "firstStudentID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "secondStudentID",
+            "columnName": "secondStudentID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchResultState",
+            "columnName": "matchResultState",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "GameID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Student",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`StudentID` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT NOT NULL, `attendanceTimes` INTEGER NOT NULL, `absenceTimes` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "StudentID",
+            "columnName": "StudentID",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attendanceTimes",
+            "columnName": "attendanceTimes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "absenceTimes",
+            "columnName": "absenceTimes",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "StudentID"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "StudentAttendClass",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `classID` INTEGER NOT NULL, `studentID` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "classID",
+            "columnName": "classID",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "studentID",
+            "columnName": "studentID",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "Matching",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`studentIDHome` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `studentIDWay` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "studentIDHome",
+            "columnName": "studentIDHome",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "studentIDWay",
+            "columnName": "studentIDWay",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "studentIDHome"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '946304a5351b5e7ef408eec9aedd2536')"
+    ]
+  }
+}

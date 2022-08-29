@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.john.attendance.ui.fragment.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" />
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.john.attendance.ui.fragment.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/attendanceRecordsFragment"
+        android:name="com.john.attendance.ui.fragment.records.AttendanceRecordsFragment"
+        android:label="AttendanceRecordsFragment"
+        tools:layout="@layout/fragment_attendance_records" />
+    <dialog
+        android:id="@+id/modifyStudentFragment"
+        android:name="com.john.attendance.ui.fragment.records.modify.ModifyStudentFragment"
+        android:label="ModifyStudentFragment"
+        tools:layout="@layout/fragment_modify_student" />
+    <fragment
+        android:id="@+id/matchingFragment"
+        android:name="com.john.attendance.ui.fragment.matching.MatchingFragment"
+        android:label="MatchingFragment" />
+</navigation>
