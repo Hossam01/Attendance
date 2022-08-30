@@ -49,10 +49,7 @@ class AttendanceRecordsFragment :
     private val itemsAdapter: StudentListAdapter = StudentListAdapter(sendClick = this)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.rvStudents.layoutManager =
-            LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
-        binding.adapter = itemsAdapter
-        binding.rvStudents.adapter = itemsAdapter
+
 
         viewModel.viewState.onEach { observeState(it) }.launchIn(lifecycleScope)
         binding.addStudentButton.setOnClickListener {
@@ -81,16 +78,20 @@ class AttendanceRecordsFragment :
                             if (it is List<*>) {
                                 val studentDatSet = (it as List<Student>).toMutableList()
                                 if (studentDatSet.size>0) {
+                                    binding.rvStudents.layoutManager =
+                                        LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                                    binding.adapter = itemsAdapter
+                                    binding.rvStudents.adapter = itemsAdapter
                                     itemsAdapter.addToList(it)
                                         itemsAdapter.notifyDataSetChanged()
-                                        binding.idTeamsGrid.visibility = View.VISIBLE
+                                        binding.rvStudents.visibility = View.VISIBLE
                                         binding.emptyDataTxt.visibility = View.GONE
 
                                 } else {
-                                        binding.idTeamsGrid.visibility = View.GONE
+                                        binding.rvStudents.visibility = View.GONE
                                         binding.emptyDataTxt.visibility = View.VISIBLE
                                 }
-                            } 
+                            }
                         }
                     }
                 }

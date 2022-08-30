@@ -81,44 +81,17 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                                 studentDatSet.clear()
                                 studentDatSet = (it as List<Student>).toMutableSet()
                                 Log.d("TAG", "observeState:${studentDatSet.size} ")
-                                if (studentDatSet.isNotEmpty()) {
+                                if (studentDatSet.size>1) {
                                     binding.rvItemlist.visibility=View.VISIBLE
                                     binding.studentHome.visibility=View.GONE
                                     var i = 0
 
-
-//                                    var length:Int=(studentDatSet.size / 2)
-//                                    for (i in 0..length)
-//                                    {
-//                                        viewModel.intents.send(
-//                                            MatchingIntents.AddMatch(
-//                                                Matching(
-//                                                    studentDatSet.elementAt(i).StudentID!!,
-//                                                    studentDatSet.elementAt((length-1)+i).StudentID!!
-//                                                )
-//                                            )
-//                                        )
-//                                    }
-
-
-                                    if (studentDatSet.size % 2 != 0) {
-                                        for (i in 0..studentDatSet.size -2) {
-                                            var radmIndex = Random.nextInt(i, studentDatSet.size)
-                                            if (radmIndex != i) {
-                                                viewModel.intents.send(
-                                                    MatchingIntents.AddMatch(
-                                                        Matching(
-                                                            studentDatSet.elementAt(i).StudentID!!,
-                                                            studentDatSet.elementAt(radmIndex).StudentID!!
-                                                        )
-                                                    )
-                                                )
-                                            }
-                                        }
-                                    } else {
+//
+                                        var list= mutableListOf<Int>()
                                         studentDatSet.forEach {
                                             var radmIndex = Random.nextInt(i, studentDatSet.size)
-                                            if (radmIndex != i) {
+                                            list.add(radmIndex)
+                                            if (!list.contains(i)&&radmIndex!=i&&list.filter { it==radmIndex }.size==1) {
                                                 viewModel.intents.send(
                                                     MatchingIntents.AddMatch(
                                                         Matching(
@@ -127,10 +100,12 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                                                         )
                                                     )
                                                 )
+                                            }else{
+
                                             }
                                             i++
                                         }
-                                    }
+
                                 }
                                 else
                                 {
