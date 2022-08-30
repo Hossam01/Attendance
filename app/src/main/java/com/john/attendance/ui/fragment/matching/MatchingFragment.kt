@@ -76,6 +76,7 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
             is MatchingState.Success<*> -> {
                 if (state.data is Flow<*>) {
                     lifecycleScope.launchWhenResumed {
+                            viewModel.intents.send(MatchingIntents.RemoveStudent)
                         state.data.collect {
                             if (it is List<*>) {
                                 studentDatSet.clear()
@@ -85,13 +86,11 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                                     binding.rvItemlist.visibility=View.VISIBLE
                                     binding.studentHome.visibility=View.GONE
                                     var i = 0
-
-//
-                                        var list= mutableListOf<Int>()
+                                        var list = mutableListOf<Int>()
                                         studentDatSet.forEach {
                                             var radmIndex = Random.nextInt(i, studentDatSet.size)
                                             list.add(radmIndex)
-                                            if (!list.contains(i)&&radmIndex!=i&&list.filter { it==radmIndex }.size==1) {
+                                            if (!list.contains(i) && radmIndex != i && list.filter { it == radmIndex }.size == 1) {
                                                 viewModel.intents.send(
                                                     MatchingIntents.AddMatch(
                                                         Matching(
@@ -100,12 +99,11 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                                                         )
                                                     )
                                                 )
-                                            }else{
+                                            } else {
 
                                             }
                                             i++
-                                        }
-
+                                    }
                                 }
                                 else
                                 {
