@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.john.attendance.R
 import com.john.attendance.base.BaseFragment
 import com.john.attendance.base.createViewModelFactory
@@ -45,6 +46,7 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
 
         viewModel.viewState.onEach { observeState(it) }.launchIn(lifecycleScope)
 
+        binding.rvItemlist.layoutManager = GridLayoutManager(activity,2)
         lifecycleScope.launchWhenResumed {
             viewModel.intents.send(MatchingIntents.GetDataRequest)
         }

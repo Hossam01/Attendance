@@ -30,6 +30,14 @@
         <entry key="..\:/Attendance-Management-master/app/src/main/res/layout/item_list_students.xml" value="0.19739583333333333" />
         <entry key="..\:/Attendance-Management-master/app/src/main/res/layout/match_item.xml" value="0.19635416666666666" />
         <entry key="..\:/Attendance-Management-master/app/src/main/res/layout/matching_fragment.xml" value="0.19739583333333333" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/drawable/default_button_border_radius.xml" value="0.1895" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/drawable/default_button_radius.xml" value="0.1895" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/drawable/rev_button_bg_selector.xml" value="0.1895" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/drawable/rev_button_text_color_selector.xml" value="0.1895" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/layout/fragment_home.xml" value="0.25" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/layout/item_list_students.xml" value="0.25" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/layout/match_item.xml" value="0.25" />
+        <entry key="..\:/Users/msi2/Documents/GitHub/Attendance/app/src/main/res/layout/matching_fragment.xml" value="0.25" />
       </map>
     </option>
   </component>
@@ -39,7 +47,7 @@
     <option name="priority" value="Medium" />
     <option name="excludeFilter" value="" />
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
