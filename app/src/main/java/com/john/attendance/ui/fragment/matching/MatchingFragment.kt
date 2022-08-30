@@ -124,29 +124,29 @@ class MatchingFragment : BaseFragment<MatchingFragmentBinding,MatchingViewModel,
                     lifecycleScope.launchWhenResumed {
                         state.data.collect {
                             if (it is List<*>) {
-                                val MatchDatSet = (it as List<Matching>).toMutableList()
-                                list.clear()
-                                try {
-
-
-                                    MatchDatSet.forEach {
-                                        list.add(
-                                            MatchStudent(
-                                                studentDatSet.filter { them -> them.StudentID == it.studentIDHome }
-                                                    .get(0).name.toString(),
-                                                studentDatSet.filter { them -> them.StudentID == it.studentIDWay }
-                                                    .get(0).name.toString()
+                                if (it.isNotEmpty()) {
+                                    val MatchDatSet = (it as List<Matching>).toMutableList()
+                                    list.clear()
+                                    try {
+                                        MatchDatSet.forEach {
+                                            list.add(
+                                                MatchStudent(
+                                                    studentDatSet.filter { them -> them.StudentID == it.studentIDHome }
+                                                        .get(0).name.toString(),
+                                                    studentDatSet.filter { them -> them.StudentID == it.studentIDWay }
+                                                        .get(0).name.toString()
+                                                )
                                             )
-                                        )
+                                        }
+                                    } catch (e: Exception) {
+                                        lifecycleScope.launchWhenResumed {
+                                            viewModel.intents.send(MatchingIntents.GetDataRequest)
+                                        }
                                     }
-                                }catch (e:Exception){
-                                    lifecycleScope.launchWhenResumed {
-                                        viewModel.intents.send(MatchingIntents.GetDataRequest)
-                                    }
-                                }
-                                Log.d("TAG", "observeStatematch: ${list}")
+                                    Log.d("TAG", "observeStatematch: ${list}")
                                     binding.rvItemlist.adapter = adapter
                                     adapter.addItems(list)
+                                }
                             }
                         }
                     }
